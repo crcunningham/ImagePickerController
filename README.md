@@ -27,7 +27,6 @@ An iOS PhotoKit-compatible replacement for UIImagePickerController with multi-se
     
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         
-        Asset *lastAsset = nil;
         for (PHAsset *asset in assets) {
             CLLocation *location = asset.location;
             NSDate *creationDate = asset.creationDate;            
