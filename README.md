@@ -4,40 +4,40 @@ An iOS PhotoKit-compatible replacement for UIImagePickerController with multi-se
 
 # Usage
 
-// Present the image picker
-- (void)onAddTapped:(id)sender {
-    ImagePickerController *picker = [[ImagePickerController alloc] init];
-    UINavigationController *navigation = [[UINavigationController alloc] initWithRootViewController:picker];
-    picker.delegate = self;
-    [self presentViewController:navigation animated:YES completion:nil];
-}
+	// Present the image picker
+	- (void)onAddTapped:(id)sender {
+	    ImagePickerController *picker = [[ImagePickerController alloc] init];
+	    UINavigationController *navigation = [[UINavigationController alloc] initWithRootViewController:picker];
+	    picker.delegate = self;
+	    [self presentViewController:navigation animated:YES completion:nil];
+	}
 
-// An example of handling the delegate callback
-- (void)imagePickerController:(ImagePickerController *)controller didPickAssets:(NSArray *)assets {
+	// An example of handling the delegate callback
+	- (void)imagePickerController:(ImagePickerController *)controller didPickAssets:(NSArray *)assets {
 
-    UIAlertView *alert = nil;
-    if (assets.count > 1) {
-        alert = [[UIAlertView alloc] initWithTitle:@"Importing…"
-                                           message:nil
-                                          delegate:nil
-                                 cancelButtonTitle:nil
-                                 otherButtonTitles:nil];
-        [alert show];
-    }
+	    UIAlertView *alert = nil;
+	    if (assets.count > 1) {
+	        alert = [[UIAlertView alloc] initWithTitle:@"Importing…"
+	                                           message:nil
+	                                          delegate:nil
+	                                 cancelButtonTitle:nil
+	                                 otherButtonTitles:nil];
+	        [alert show];
+	    }
     
-    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+	    dispatch_async(dispatch_get_global_queue(0, 0), ^{
         
-        for (PHAsset *asset in assets) {
-            CLLocation *location = asset.location;
-            NSDate *creationDate = asset.creationDate;            
-            NSData *data = [asset ts_imageData];
-            // Do something with this ^ data here
-        }
+	        for (PHAsset *asset in assets) {
+	            CLLocation *location = asset.location;
+	            NSDate *creationDate = asset.creationDate;            
+	            NSData *data = [asset ts_imageData];
+	            // Do something with this ^ data here
+	        }
         
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [alert dismissWithClickedButtonIndex:-1 animated:YES];
-        });
-    });
+	        dispatch_async(dispatch_get_main_queue(), ^{
+	            [alert dismissWithClickedButtonIndex:-1 animated:YES];
+	        });
+	    });
     
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
+	    [self dismissViewControllerAnimated:YES completion:nil];
+	}
